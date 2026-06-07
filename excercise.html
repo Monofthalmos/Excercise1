@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Τηλε-διάδρασης 2</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Verdana,Arial,sans-serif;background:#e9e5d4;color:#4a2f2f;padding:24px}
+    .wrapper{max-width:1160px;margin:auto;background:#f7f1df;border:1px solid #d9cfb7;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.13)}
+    .top{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+    .stage{position:relative;min-height:470px;background:linear-gradient(180deg,#ece4cf,#fbf7ea);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .clock{position:absolute;top:14px;left:95px;font-size:31px;font-weight:700;color:rgba(70,70,70,.16)}
+    .tv{width:73%;height:320px;background:linear-gradient(125deg,#191919 0%,#50545c 48%,#d5d8db 100%);border:5px solid #ded9c8;box-shadow:0 12px 22px rgba(0,0,0,.3);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .tv-title{position:absolute;right:24px;top:40px;color:white;text-align:right;font-size:26px;font-weight:800;letter-spacing:1px;text-shadow:0 2px 4px #000}
+    .person{width:125px;height:210px;border-radius:60px 60px 16px 16px;background:linear-gradient(#e8c1ad 0 29%,#eaeaea 29% 45%,#343434 45% 69%,#8a1f1f 69% 100%);box-shadow:inset 0 0 12px rgba(0,0,0,.25)}
+    .bar{position:absolute;left:0;right:0;bottom:14px;height:42px;background:rgba(20,20,20,.76);border-top:3px solid #9c2323;color:#fff;display:flex;align-items:center;padding-left:18px;font-size:12px}
+    .mini-time{position:absolute;right:20px;bottom:59px;background:#fff;color:#555;padding:5px 12px;font-size:14px;font-weight:700}
+    .presentation{position:absolute;left:72px;top:132px;width:255px;height:145px;background:#080808;border:5px solid #faf6df;box-shadow:0 6px 15px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;text-align:center;color:#bd7d86;font-size:21px;line-height:1.3}
+    .presentation:after{content:"››";position:absolute;right:-28px;font-size:48px;color:#e5f5dd;text-shadow:2px 0 #cc3c4b}
+    .side{background:#fffdf6;border:1px solid #cfc7b3;min-height:425px;box-shadow:0 5px 12px rgba(0,0,0,.08)}
+    .side-head{background:#4c2d83;color:#ffd557;text-align:center;padding:11px;font-weight:700;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+    .feed{padding:8px 14px;font-size:12px;color:#111;max-height:385px;overflow:auto}
+    .row{display:grid;grid-template-columns:48px 1fr;gap:9px;border-bottom:1px solid #cfcfcf;padding:11px 0;line-height:1.25}
+    .row b{font-weight:800}
+    .participants{display:grid;grid-template-columns:repeat(4,1fr);margin-top:20px;text-align:center;color:#843636;font-weight:800;letter-spacing:.8px}
+    .participant{min-height:72px;padding-top:23px;border-left:1px solid #d9cfb7;position:relative}
+    .participant:last-child{border-right:1px solid #d9cfb7}
+    .participant:before{content:attr(data-label);position:absolute;top:0;left:17%;right:17%;height:1px;background:#ccc1a9;color:#aaa;font-size:10px;font-weight:400;transform:translateY(-8px)}
+    @media(max-width:850px){body{padding:10px}.top{grid-template-columns:1fr}.tv{width:90%;height:255px}.presentation{left:24px;top:108px;width:215px;height:122px}.participants{grid-template-columns:repeat(2,1fr);row-gap:14px}.clock{left:32px}.side{min-height:auto}}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="top">
+      <main class="stage">
+        <div class="clock">7:15AM</div>
+        <section class="tv">
+          <div class="tv-title">DAILY<br>UPDATE</div>
+          <div class="person"></div>
+          <div class="mini-time">7:15AM</div>
+          <div class="bar">LIVE SESSION &nbsp; | &nbsp; REMOTE PARTICIPATION ENABLED</div>
+        </section>
+        <div class="presentation">χώρος<br>παρουσίασης</div>
+      </main>
+
+      <aside class="side">
+        <div class="side-head">events / messages</div>
+        <div class="feed" id="feed"></div>
+      </aside>
+    </div>
+
+    <section class="participants">
+      <div class="participant" data-label="16:55">USER A AREA</div>
+      <div class="participant" data-label="16:18">USER B AREA</div>
+      <div class="participant" data-label="15:40">USER C AREA</div>
+      <div class="participant" data-label="11:20">USER D AREA</div>
+    </section>
+  </div>
+
+  <script>
+    const data = ["17:05", "16:55", "16:41", "16:29", "16:17", "16:04"];
+    const feed = document.getElementById("feed");
+    data.forEach((time, index) => {
+      const item = document.createElement("div");
+      item.className = "row";
+      item.innerHTML = `<div>${time}</div><div><b>Notice:</b> New interaction received<br>${index % 2 === 0 ? "(system message)" : "(chat message)"}</div>`;
+      feed.appendChild(item);
+    });
+  </script>
+</body>
+</html>
